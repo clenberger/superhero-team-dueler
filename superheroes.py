@@ -88,13 +88,17 @@ class Hero:
         if (self.is_alive()):
             self.add_kills()
             opponent.add_deaths()
-            print(self.name + ' Won the brawl!')
+            print(self.name + ' Won this round!!!')
         elif (opponent.is_alive()):
             self.add_deaths()
             opponent.add_kills()
-            print(opponent.name + ' Won the brawl!')
+            print(opponent.name + ' Won this round!!')
         else: 
             print("Draw!")
+
+class Weapon(Ability):
+    def attack(self):
+        return random.randint(self.max_damage//2, self.max_damage)    
 
 if __name__ == "__main__":
     # If you run this file from the terminal
