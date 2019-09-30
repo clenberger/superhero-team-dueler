@@ -1,5 +1,6 @@
 import random
 
+# Ability class
 class Ability:
     def __init__(self, name:str, max_damage:int):
         self.name = name
@@ -12,7 +13,7 @@ class Ability:
 
 
 
-
+# Armor class
 class Armor:
     def __init__(self, name:str, max_block:int):
         self.name = name
@@ -24,6 +25,7 @@ class Armor:
 
 
 
+# Hero Class
 class Hero:
     def __init__(self, name, starting_health=100):
         self.name = name
@@ -34,7 +36,7 @@ class Hero:
         self.kills = 0
         self.deaths = 0
 
-    def ability(self, ability):
+    def add_ability(self, ability):
         self.abilities.append(ability)
 
     def attack(self):
@@ -96,10 +98,37 @@ class Hero:
         else: 
             print("Draw!")
 
+
+
+# Weapon Class
 class Weapon(Ability):
     def attack(self):
         return random.randint(self.max_damage//2, self.max_damage)    
 
+
+
+# Team Class
+class Team:
+    def __init__ (self, name):
+        self.name = name
+        self.heroes = []
+
+    def remove_hero (self, name):
+        for hero in self.heroes:     
+            if hero.name == name:
+                self.heroes.remove(hero)
+        return 0
+
+    def view_all_heroes(self):
+        for hero in self.heroes:
+            print(hero.name)
+
+    def add_hero(self, hero):
+        self.heroes.append(hero)
+
+
+
+# Tests
 if __name__ == "__main__":
     # If you run this file from the terminal
     # this block is executed.
@@ -109,8 +138,8 @@ if __name__ == "__main__":
     ability2 = Ability("Super Eyes", 130)
     ability3 = Ability("Wizard Wand", 80)
     ability4 = Ability("Wizard Beard", 20)
-    hero1.ability(ability1)
-    hero1.ability(ability2)
-    hero2.ability(ability3)
-    hero2.ability(ability4)
+    hero1.add_ability(ability1)
+    hero1.add_ability(ability2)
+    hero2.add_ability(ability3)
+    hero2.add_ability(ability4)
     hero1.fight(hero2)
