@@ -1,5 +1,5 @@
 import random
-#Massive thank you to Alex Gray for helping me with everything. I completely redid my project after some complications with my code quality and he walked me through everything.
+#Massive thank you to Alex Gray and Nick Kearns for helping me with everything. I completely redid my project after some complications with my code quality and he walked me through everything.
 # Ability class
 class Ability:
     def __init__(self, name:str, max_damage:int):
@@ -45,6 +45,12 @@ class Hero:
             damage += abilities.attack()
         return damage
 
+    def defend(self):
+        total_block = 0
+        for block in self.armors:
+            total_block += block.block()
+        return total_block
+
     def add_armor(self, damage_amt):
         damage_amt = 0
         for hero in self.armors:
@@ -53,7 +59,12 @@ class Hero:
         
 
     def take_damage(self, damage):
-        self.current_health -= damage
+        if damage - self.defend() > 0:
+            self.current_health -= (damage - self.defend())
+            print(self.name + " HP: " + str(self.current_health))
+        else:
+            print("The attack was blocked")
+            print(self.name + " HP: " + str(self.current_health))
         
 
     def is_alive(self):
@@ -98,6 +109,11 @@ class Hero:
         else: 
             print("Draw!")
 
+    def add_weapon(self, weapon):
+        self.abilities.append(weapon)
+
+    def add_armor(self, armor):
+        self.armors.append(armor)
 
 
 # Weapon Class
@@ -144,6 +160,12 @@ class Team:
         for hero in self.heroes:
             ratio = hero.kills / hero.deaths
             print(hero.name + "'s ratio is: " + ratio)
+
+class Arena:
+    def __init__(self):
+        self.team_one: None
+        self.team_two: None
+
 
 
 
