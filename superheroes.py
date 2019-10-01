@@ -1,12 +1,13 @@
 import random
 #Massive thank you to Alex Gray and Nick Kearns for helping me with everything. I completely redid my project after some complications with my code quality and he walked me through everything.
+
 # Ability class
 class Ability:
     def __init__(self, name:str, max_damage:int):
         self.name = name
         self.max_damage = max_damage
 
-    
+    #returns attack value
     def attack(self):
         attack = random.randint(0, self.max_damage)
         return attack
@@ -19,6 +20,7 @@ class Armor:
         self.name = name
         self.max_block = max_block
 
+# returns block value
     def block(self):
         block = random.randint(0, self.max_block)
         return block
@@ -36,6 +38,7 @@ class Hero:
         self.kills = 0
         self.deaths = 0
 
+# appends user created abilities to an ability array 
     def add_ability(self, ability):
         self.abilities.append(ability)
 
@@ -227,39 +230,17 @@ class Arena:
 
 # Tests
 if __name__ == "__main__":
-    # If you run this file from the terminal
-    # this block is executed.
-    # hero1 = Hero("Batman")
-    # hero2 = Hero("Iron Man")
-    # ability1 = Ability("Speed", 300)
-    # ability2 = Ability("Agility", 130)
-    # ability3 = Ability("Lasers", 100)
-    # ability4 = Ability("Nokia-like armor", 200)
-    # hero1.add_ability(ability1)
-    # hero1.add_ability(ability2)
-    # hero2.add_ability(ability3)
-    # hero2.add_ability(ability4)
-    # hero1.fight(hero2)
-    # arena = Arena()
-    # arena.build_team_one()
-    # arena.build_team_two()
-    # arena.team_battle()
-    # arena.show_stats()
     running = True 
     arena = Arena()
     arena.build_team_one()
     arena.build_team_two()
     while running:
-
         arena.team_battle()
         arena.show_stats()
         play_again = input("Play Again? Y or N: ")
 
-        #Check for Player Input
         if play_again.lower() == "n":
             running  = False
-
         else:
-            #Revive heroes to play again
             arena.team_one.revive_heroes()
             arena.team_two.revive_heroes()
