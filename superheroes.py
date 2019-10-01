@@ -1,5 +1,5 @@
 import random
-
+#Massive thank you to Alex Gray for helping me with everything. I completely redid my project after some complications with my code quality and he walked me through everything.
 # Ability class
 class Ability:
     def __init__(self, name:str, max_damage:int):
@@ -90,11 +90,11 @@ class Hero:
         if (self.is_alive()):
             self.add_kills()
             opponent.add_deaths()
-            print(self.name + ' Won this round!!!')
+            print(self.name + ' won this round!!!')
         elif (opponent.is_alive()):
             self.add_deaths()
             opponent.add_kills()
-            print(opponent.name + ' Won this round!!')
+            print(opponent.name + ' won this round!!')
         else: 
             print("Draw!")
 
@@ -126,18 +126,38 @@ class Team:
     def add_hero(self, hero):
         self.heroes.append(hero)
 
+    def attack(self, other_team):
+        ''' Battle each team against each other.'''
+        while self.heroes and other_team.heroes:
+            hero_1 = random.choice(self.heroes)
+            hero_2 = random.choice(other_team.heroes)
+            if hero_1.is_alive() and hero_2.is_alive():
+                hero_1.fight(hero_2)
+            
+    def revive_heroes(self, health=100):
+        ''' Reset all heroes health to starting_health'''
+        for hero in self.heroes:
+            hero.current_health = hero.starting_health
+
+    def stats(self):
+        '''Print team statistics'''
+        for hero in self.heroes:
+            ratio = hero.kills / hero.deaths
+            print(hero.name + "'s ratio is: " + ratio)
+
+
 
 
 # Tests
 if __name__ == "__main__":
     # If you run this file from the terminal
     # this block is executed.
-    hero1 = Hero("Wonder Woman")
-    hero2 = Hero("Dumbledore")
-    ability1 = Ability("Super Speed", 300)
-    ability2 = Ability("Super Eyes", 130)
-    ability3 = Ability("Wizard Wand", 80)
-    ability4 = Ability("Wizard Beard", 20)
+    hero1 = Hero("Batman")
+    hero2 = Hero("Iron Man")
+    ability1 = Ability("Speed", 300)
+    ability2 = Ability("Agility", 130)
+    ability3 = Ability("Lasers", 100)
+    ability4 = Ability("Nokia-like armor", 200)
     hero1.add_ability(ability1)
     hero1.add_ability(ability2)
     hero2.add_ability(ability3)
